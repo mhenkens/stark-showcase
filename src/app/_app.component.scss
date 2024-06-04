@@ -1,0 +1,57 @@
+.stark-app-sidebar {
+  .stark-app-sidenav-menu {
+    .stark-app-logo {
+      display: flex;
+      justify-content: center;
+      padding: 10px 0 20px;
+    }
+
+    &.stark-app-sidenav-menu-shifting {
+      .stark-app-logo {
+        display: none;
+      }
+    }
+  }
+}
+
+@media #{$tablet-query} {
+  .stark-app-sidebar {
+    .stark-app-sidenav-menu {
+      .stark-app-logo {
+        display: none;
+      }
+    }
+  }
+}
+
+@media #{$mobile-only-query} {
+  .stark-app-sidebar {
+    .stark-app-sidenav-menu {
+      .stark-app-logo {
+        i {
+          display: block;
+          margin-top: 0;
+
+          width: 200px;
+          height: 60px;
+
+          background-image: url(/assets/stark-core/logo/dark/stark_logo_dark.svg);
+          background-size: contain;
+          background-position: center;
+          background-repeat: no-repeat;
+        }
+      }
+    }
+  }
+}
+
+.stark-app-bar-content-right-actions-alt .mat-icon-button.github-icon {
+  .mat-button-wrapper {
+    padding: 0;
+  }
+
+  mat-icon {
+    height: 40px;
+    width: 40px;
+  }
+}

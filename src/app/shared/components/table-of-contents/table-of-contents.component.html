@@ -1,0 +1,13 @@
+<div *ngIf="links.length > 0" class="table-of-contents-container">
+	<div class="table-of-contents-heading">Contents</div>
+	<nav>
+		<a
+			*ngFor="let link of links; trackBy: trackItem"
+			[href]="getHref(link)"
+			class="table-of-contents-level-{{ link.type }} table-of-contents-link"
+			[class.table-of-contents-active-link]="link.active"
+		>
+			{{ link.name }}
+		</a>
+	</nav>
+</div>

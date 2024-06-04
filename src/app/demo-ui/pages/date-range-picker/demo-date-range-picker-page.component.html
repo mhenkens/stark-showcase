@@ -1,0 +1,89 @@
+<h1 class="mat-display-3" translate>SHOWCASE.DEMO.DATE_RANGE_PICKER.TITLE</h1>
+<section class="stark-section">
+	<h1 translate>SHOWCASE.DEMO.SHARED.EXAMPLE_VIEWER_LIST</h1>
+
+	<example-viewer
+		id="ng-model"
+		[extensions]="['HTML', 'TS']"
+		filesPath="date-range-picker/model"
+		exampleTitle="SHOWCASE.DEMO.DATE_RANGE_PICKER.WITH_MODEL"
+	>
+		<stark-date-range-picker
+			[(ngModel)]="dateRangeModel"
+			(dateRangeChanged)="onDateModelChange()"
+			dateFilter="OnlyWeekdays"
+			[startMinDate]="today"
+			[startMaxDate]="inOneMonth"
+			[endMinDate]="today"
+			[endMaxDate]="inOneMonth"
+			[disabled]="modelDisabled"
+			[required]="true"
+			#dateRangeComponent
+		>
+			<ng-container
+				start-date-errors
+				*ngFor="let error of getErrorMessages(dateRangeComponent.startDateFormControl); trackBy: trackItemFn"
+			>
+				{{ error | translate }}
+				<br />
+			</ng-container>
+
+			<ng-container
+				end-date-errors
+				*ngFor="let error of getErrorMessages(dateRangeComponent.endDateFormControl); trackBy: trackItemFn"
+			>
+				{{ error | translate }}
+				<br />
+			</ng-container>
+		</stark-date-range-picker>
+		<br /><br />
+		<mat-checkbox [(ngModel)]="modelDisabled">
+			{{ "SHOWCASE.COMMON.DISABLED" | translate }}
+		</mat-checkbox>
+	</example-viewer>
+
+	<example-viewer
+		id="reactive-form-group"
+		[extensions]="['HTML', 'TS']"
+		filesPath="date-range-picker/form-group"
+		exampleTitle="SHOWCASE.DEMO.DATE_RANGE_PICKER.WITH_FORM_GROUP"
+	>
+		<stark-date-range-picker [rangeFormGroup]="dateRangeFormGroup" required>
+			<ng-container
+				start-date-errors
+				*ngFor="let error of getErrorMessages(dateRangeFormGroup.controls.startDate); trackBy: trackItemFn"
+			>
+				{{ error | translate }}
+				<br />
+			</ng-container>
+
+			<ng-container end-date-errors *ngFor="let error of getErrorMessages(dateRangeFormGroup.controls.endDate); trackBy: trackItemFn">
+				{{ error | translate }}
+				<br />
+			</ng-container>
+		</stark-date-range-picker>
+		<br /><br />
+		<mat-checkbox [checked]="dateRangeFormGroup.disabled" (change)="onDateRangeFormGroupDisableCheckboxChange($event)">
+			{{ "SHOWCASE.COMMON.DISABLED" | translate }}
+		</mat-checkbox>
+	</example-viewer>
+
+	<example-viewer
+		id="default-date-mask"
+		[extensions]="['HTML', 'TS']"
+		filesPath="date-range-picker/date-mask"
+		exampleTitle="SHOWCASE.DEMO.DATE_RANGE_PICKER.WITH_MASK"
+	>
+		<stark-date-range-picker dateMask (dateRangeChanged)="onDateChange($event)"></stark-date-range-picker>
+	</example-viewer>
+
+	<example-viewer
+		id="custom-date-mask"
+		[extensions]="['HTML', 'TS']"
+		filesPath="date-range-picker/custom-date-mask"
+		exampleTitle="SHOWCASE.DEMO.DATE_RANGE_PICKER.WITH_CUSTOM_MASK"
+	>
+		<stark-date-range-picker [dateMask]="{ format: 'DD-MM-YYYY' }" (dateRangeChanged)="onDateChange($event)"></stark-date-range-picker>
+	</example-viewer>
+</section>
+<stark-reference-block [links]="referenceList"></stark-reference-block>

@@ -1,0 +1,18 @@
+/*
+Import the local variables file first to set the correct variables, see:
+  - https://stark.nbb.be/showcase/latest/styleguide/typography
+  - https://stark.nbb.be/showcase/latest/styleguide/colors
+*/
+@import "variables";
+@import "~@nationalbankbelgium/stark-ui/assets/theming";
+@import "../app/app.component-theme";
+@import "../app/shared/components/example-viewer/example-viewer-theme";
+@import "../app/shared/components/table-of-contents/table-of-contents-theme";
+@import "../app/welcome/pages/getting-started/getting-started-page-theme";
+@import "../app/welcome/pages/home/home-page-theme";
+@import "../app/welcome/pages/news/news-page-theme";
+@import "../app/welcome/components/news-item/news-item-theme";
+@import "../app/styleguide/pages/typography/styleguide-typography-page-theme";
+@import "../app/demo-ui/pages/route-search/demo-route-search-page.component-theme";
+@import "../app/demo-ui/components/table-regular/table-regular-theme";
+@import "../app/styleguide/pages/layout/styleguide-layout-page.theme";
