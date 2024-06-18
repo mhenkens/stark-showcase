@@ -38,14 +38,6 @@ import "core-js/proposals/reflect-metadata";
 import "core-js/modules/web.dom-collections.iterator";
 
 /**
- * IE11 and Edge require this to support Server-sent events
- * https://caniuse.com/#feat=eventsource
- *
- * Polyfill: https://github.com/Yaffle/EventSource
- */
-import "event-source-polyfill";
-
-/**
  * IE11 requires Element.classList for NgClass support on SVG elements
  * See: https://caniuse.com/#feat=classlist
  *
@@ -73,11 +65,9 @@ import "hammerjs";
 /***************************************************************************************************
  * Zone JS is required by Angular itself.
  */
-// workaround for IE11 before loading zone.ks (see: https://github.com/angular/zone.js/issues/933)
-(window as any).__Zone_enable_cross_context_check = true;
-import "zone.js/dist/zone";
+import "zone.js";
 // async stack traces with zone.js included for dev
-// import 'zone.js/dist/long-stack-trace-zone'
+// import 'zone.js/plugins/long-stack-trace-zone'
 /* tslint:enable */
 
 /***************************************************************************************************

@@ -2,12 +2,14 @@
   "extends": [
     "tslint:latest",
     "tslint-sonarts",
-    "@nationalbankbelgium/code-style/codelyzer/5.2.x",
-    "@nationalbankbelgium/code-style/tslint/5.20.x",
+    "@nationalbankbelgium/code-style/codelyzer/6.0.x",
+    "@nationalbankbelgium/code-style/tslint/6.1.x",
     "tslint-config-prettier"
   ],
   "rules": {
     "component-selector": false,
-    "typedef": [true, "call-signature", "parameter", "arrow-parameter", "property-declaration"]
+    // "deprecation" rule has to be disabled until we switch to ESLint
+    // due to conflicts between TypeScript > 4.3 and TSLint
+    "deprecation": false
   }
 }

@@ -8,11 +8,12 @@ import {
 	StarkRoutingService
 } from "@nationalbankbelgium/stark-core";
 import { FileService } from "../../services";
+import { StarkPrettyPrintFormat } from "@nationalbankbelgium/stark-ui";
 
 export interface ExampleFile {
 	extension: string;
 	data: string;
-	format: string;
+	format: StarkPrettyPrintFormat;
 }
 
 @Component({
@@ -100,7 +101,7 @@ export class ExampleViewerComponent implements OnInit {
 		return file.extension;
 	}
 
-	private translateExtensionToFormat(extension: string): string {
+	private translateExtensionToFormat(extension: string): StarkPrettyPrintFormat {
 		switch (extension.toLowerCase()) {
 			case "js":
 				return "javascript";
@@ -109,7 +110,7 @@ export class ExampleViewerComponent implements OnInit {
 				return "typescript";
 
 			default:
-				return extension;
+				return <StarkPrettyPrintFormat>extension;
 		}
 	}
 }

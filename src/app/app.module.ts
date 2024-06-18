@@ -1,11 +1,10 @@
-import { APP_INITIALIZER, Inject, NgModule, NgModuleFactoryLoader, SystemJsNgModuleLoader } from "@angular/core";
+import { APP_INITIALIZER, Inject, NgModule } from "@angular/core";
 import { BrowserModule, DomSanitizer } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { UIRouter, UIRouterModule } from "@uirouter/angular";
 import { ActionReducer, ActionReducerMap, MetaReducer, StoreModule } from "@ngrx/store";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { EffectsModule } from "@ngrx/effects";
-import { storeFreeze } from "ngrx-store-freeze";
 import { storeLogger } from "ngrx-store-logger";
 import { MatIconRegistry } from "@angular/material/icon";
 import { DateAdapter } from "@angular/material/core";
@@ -24,7 +23,7 @@ import {
 	StarkApplicationMetadataImpl,
 	StarkErrorHandlingModule,
 	StarkHttpModule,
-	StarkLoggingActionTypes,
+	StarkLoggingActions,
 	StarkLoggingModule,
 	StarkMockData,
 	starkPreloadingStateName,
@@ -75,7 +74,7 @@ import { getAuthenticationHeaders } from "./authentication.config";
 /*
  * Platform and Environment providers/directives/pipes
  */
-import { environment } from "environments/environment";
+import { environment } from "../environments/environment";
 import { APP_STATES } from "./app.routes";
 // App is our top level component
 import { AppComponent } from "./app.component";
@@ -147,12 +146,12 @@ export function logger(reducer: ActionReducer<State>): any {
 	// default, no options
 	return storeLogger({
 		filter: {
-			blacklist: [StarkLoggingActionTypes.LOG_MESSAGE]
+			blacklist: [StarkLoggingActions.logMessage.type]
 		}
 	})(reducer);
 }
 
-export const metaReducers: MetaReducer<State>[] = ENV === "development" ? [logger, storeFreeze] : [];
+export const metaReducers: MetaReducer<State>[] = ENV === "development" ? [logger] : [];
 
 /**
  * `AppModule` is the main entry point into Angular's bootstrapping process
@@ -226,7 +225,6 @@ export const metaReducers: MetaReducer<State>[] = ENV === "development" ? [logge
 	 */
 	providers: [
 		environment.ENV_PROVIDERS,
-		{ provide: NgModuleFactoryLoader, useClass: SystemJsNgModuleLoader }, // needed for ui-router
 		{ provide: STARK_APP_CONFIG, useFactory: starkAppConfigFactory },
 		{ provide: STARK_APP_METADATA, useFactory: starkAppMetadataFactory },
 		{ provide: STARK_MOCK_DATA, useFactory: starkMockDataFactory },
