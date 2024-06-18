@@ -2,11 +2,7 @@ import { Injectable, Injector, NgZone } from "@angular/core";
 import { Actions, Effect, ofType } from "@ngrx/effects";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
-import {
-	StarkRBACAuthorizationActionsTypes,
-	StarkUserNavigationUnauthorized,
-	StarkUserNavigationUnauthorizedRedirected
-} from "@nationalbankbelgium/stark-rbac";
+import { StarkRBACAuthorizationActions } from "@nationalbankbelgium/stark-rbac";
 import { STARK_TOAST_NOTIFICATION_SERVICE, StarkMessageType, StarkToastNotificationService } from "@nationalbankbelgium/stark-ui";
 import uniqueId from "lodash-es/uniqueId";
 
@@ -28,8 +24,8 @@ export class StarkRbacUnauthorizedNavigationEffects {
 	@Effect({ dispatch: false })
 	public starkRBACNavigationUnauthorized$(): Observable<void> {
 		return this.actions$.pipe(
-			ofType<StarkUserNavigationUnauthorized>(StarkRBACAuthorizationActionsTypes.RBAC_USER_NAVIGATION_UNAUTHORIZED),
-			map((action: StarkUserNavigationUnauthorized) => {
+			ofType(StarkRBACAuthorizationActions.userNavigationUnauthorized),
+			map((action) => {
 				this.zone.run(() => {
 					this.toastNotificationService
 						.show({
@@ -47,10 +43,8 @@ export class StarkRbacUnauthorizedNavigationEffects {
 	@Effect({ dispatch: false })
 	public starkRBACNavigationUnauthorizedRedirected$(): Observable<void> {
 		return this.actions$.pipe(
-			ofType<StarkUserNavigationUnauthorizedRedirected>(
-				StarkRBACAuthorizationActionsTypes.RBAC_USER_NAVIGATION_UNAUTHORIZED_REDIRECTED
-			),
-			map((action: StarkUserNavigationUnauthorizedRedirected) => {
+			ofType(StarkRBACAuthorizationActions.userNavigationUnauthorizedRedirected),
+			map((action) => {
 				this.zone.run(() => {
 					this.toastNotificationService
 						.show({

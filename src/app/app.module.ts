@@ -1,11 +1,10 @@
-import { APP_INITIALIZER, Inject, NgModule, NgModuleFactoryLoader, SystemJsNgModuleLoader } from "@angular/core";
+import { APP_INITIALIZER, Inject, NgModule } from "@angular/core";
 import { BrowserModule, DomSanitizer } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { UIRouter, UIRouterModule } from "@uirouter/angular";
 import { ActionReducer, ActionReducerMap, MetaReducer, StoreModule } from "@ngrx/store";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { EffectsModule } from "@ngrx/effects";
-import { storeFreeze } from "ngrx-store-freeze";
 import { storeLogger } from "ngrx-store-logger";
 import { MatIconRegistry } from "@angular/material/icon";
 import { DateAdapter } from "@angular/material/core";
@@ -24,7 +23,7 @@ import {
 	StarkApplicationMetadataImpl,
 	StarkErrorHandlingModule,
 	StarkHttpModule,
-	StarkLoggingActionTypes,
+	StarkLoggingActions,
 	StarkLoggingModule,
 	StarkMockData,
 	starkPreloadingStateName,
@@ -75,12 +74,15 @@ import { getAuthenticationHeaders } from "./authentication.config";
 /*
  * Platform and Environment providers/directives/pipes
  */
-import { environment } from "environments/environment";
+import { environment } from "../environments/environment";
 import { APP_STATES } from "./app.routes";
 // App is our top level component
 import { AppComponent } from "./app.component";
 
 // TODO: where to put this factory function?
+/**
+ *
+ */
 export function starkAppConfigFactory(): StarkApplicationConfig {
 	const config: any = require("../stark-app-config.json");
 
@@ -99,6 +101,9 @@ export function starkAppConfigFactory(): StarkApplicationConfig {
 }
 
 // TODO: where to put this factory function?
+/**
+ *
+ */
 export function starkAppMetadataFactory(): StarkApplicationMetadata {
 	const metadata: any = require("../stark-app-metadata.json");
 
@@ -106,6 +111,7 @@ export function starkAppMetadataFactory(): StarkApplicationMetadata {
 }
 
 // TODO: where to put this factory function?
+/* eslint-disable-next-line jsdoc/require-jsdoc */
 export function starkMockDataFactory(): StarkMockData {
 	if (ENV === "development") {
 		return require("../../config/json-server/data.json");
@@ -114,10 +120,12 @@ export function starkMockDataFactory(): StarkMockData {
 	return {};
 }
 
+/* eslint-disable-next-line jsdoc/require-jsdoc */
 export function initRouterLog(router: UIRouter): () => void {
 	return (): void => logRegisteredStates(router.stateService.get());
 }
 
+/* eslint-disable-next-line jsdoc/require-jsdoc */
 export function getXsrfWaitBeforePinging(sessionService: StarkSessionService): Observable<any> {
 	let waitFor$: Observable<any> = of("production"); // no need to wait on production
 
@@ -125,9 +133,7 @@ export function getXsrfWaitBeforePinging(sessionService: StarkSessionService): O
 		// wait for the user to be logged in (useful when targeting a live backend on DEV)
 		waitFor$ = sessionService.getCurrentUser().pipe(
 			filter((user?: StarkUser) => typeof user !== "undefined"),
-			map(() => {
-				return "dev login";
-			})
+			map(() => "dev login")
 		);
 	}
 
@@ -143,16 +149,17 @@ export const reducers: ActionReducerMap<State> = {
 	// reducers
 };
 
+/* eslint-disable-next-line jsdoc/require-jsdoc */
 export function logger(reducer: ActionReducer<State>): any {
 	// default, no options
 	return storeLogger({
 		filter: {
-			blacklist: [StarkLoggingActionTypes.LOG_MESSAGE]
+			blacklist: [StarkLoggingActions.logMessage.type]
 		}
 	})(reducer);
 }
 
-export const metaReducers: MetaReducer<State>[] = ENV === "development" ? [logger, storeFreeze] : [];
+export const metaReducers: MetaReducer<State>[] = ENV === "development" ? [logger] : [];
 
 /**
  * `AppModule` is the main entry point into Angular's bootstrapping process
@@ -226,7 +233,6 @@ export const metaReducers: MetaReducer<State>[] = ENV === "development" ? [logge
 	 */
 	providers: [
 		environment.ENV_PROVIDERS,
-		{ provide: NgModuleFactoryLoader, useClass: SystemJsNgModuleLoader }, // needed for ui-router
 		{ provide: STARK_APP_CONFIG, useFactory: starkAppConfigFactory },
 		{ provide: STARK_APP_METADATA, useFactory: starkAppMetadataFactory },
 		{ provide: STARK_MOCK_DATA, useFactory: starkMockDataFactory },

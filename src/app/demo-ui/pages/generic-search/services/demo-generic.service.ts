@@ -83,21 +83,15 @@ export class DemoGenericService implements StarkGenericSearchService<HeroMovie, 
 		return of(MOVIES).pipe(
 			// The delay is important to show the progress-indicator during the search process.
 			delay(1000),
-			map((genericObjects: HeroMovie[]) => {
-				return genericObjects.filter((genericObject: HeroMovie) =>
+			map((genericObjects: HeroMovie[]) => genericObjects.filter((genericObject: HeroMovie) =>
 					criteria.year ? genericObject.year.toString().match(new RegExp(criteria.year, "gi")) : true
-				);
-			}),
-			map((genericObjects: HeroMovie[]) => {
-				return genericObjects.filter((genericObject: HeroMovie) =>
+				)),
+			map((genericObjects: HeroMovie[]) => genericObjects.filter((genericObject: HeroMovie) =>
 					criteria.hero ? genericObject.hero.match(new RegExp(criteria.hero, "gi")) : true
-				);
-			}),
-			map((genericObjects: HeroMovie[]) => {
-				return genericObjects.filter((genericObject: HeroMovie) =>
+				)),
+			map((genericObjects: HeroMovie[]) => genericObjects.filter((genericObject: HeroMovie) =>
 					criteria.movie ? genericObject.movie.match(new RegExp(criteria.movie, "gi")) : true
-				);
-			})
+				))
 		);
 	}
 
@@ -134,7 +128,7 @@ export class DemoGenericService implements StarkGenericSearchService<HeroMovie, 
 			}
 		}
 
-		// tslint:disable-next-line:no-alphabetical-sort
+		// eslint-disable-next-line
 		return of(years.sort());
 	}
 }

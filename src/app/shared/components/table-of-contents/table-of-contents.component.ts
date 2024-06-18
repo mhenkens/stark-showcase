@@ -1,16 +1,16 @@
 import { AfterViewInit, Component, Input, OnDestroy, OnInit } from "@angular/core";
 import { fromEvent, Subject } from "rxjs";
 import { debounceTime, takeUntil } from "rxjs/operators";
-import { StarkAction } from "@nationalbankbelgium/stark-ui";
 import { TableOfContentLink } from "./table-of-content-link.intf";
 
 @Component({
+	// eslint-disable-next-line @angular-eslint/component-selector
 	selector: "table-of-contents",
 	templateUrl: "./table-of-contents.component.html"
 })
 /**
  * The table of contents component, freely inspired from:
- * @link https://github.com/angular/material.angular.io/tree/master/src/app/shared/table-of-contents
+ * @see https://github.com/angular/material.angular.io/tree/master/src/app/shared/table-of-contents
  */
 export class TableOfContentsComponent implements OnInit, AfterViewInit, OnDestroy {
 	public links: TableOfContentLink[] = [];
@@ -30,6 +30,7 @@ export class TableOfContentsComponent implements OnInit, AfterViewInit, OnDestro
 
 		// On init, the sidenav content element doesn't yet exist, so it's not possible
 		// to subscribe to its scroll event until next tick (when it does exist).
+		// eslint-disable-next-line @typescript-eslint/no-floating-promises
 		Promise.resolve()
 			.then(() => {
 				if (this._scrollContainer) {
@@ -154,7 +155,7 @@ export class TableOfContentsComponent implements OnInit, AfterViewInit, OnDestro
 	/**
 	 * @ignore
 	 */
-	public trackItem(_index: number, item: StarkAction): string {
+	public trackItem(_index: number, item: TableOfContentLink): string {
 		return item.id;
 	}
 }

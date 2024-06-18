@@ -8,14 +8,16 @@ import {
 	StarkRoutingService
 } from "@nationalbankbelgium/stark-core";
 import { FileService } from "../../services";
+import { StarkPrettyPrintFormat } from "@nationalbankbelgium/stark-ui";
 
 export interface ExampleFile {
 	extension: string;
 	data: string;
-	format: string;
+	format: StarkPrettyPrintFormat;
 }
 
 @Component({
+	// eslint-disable-next-line @angular-eslint/component-selector
 	selector: "example-viewer",
 	templateUrl: "./example-viewer.component.html",
 	styleUrls: ["./example-viewer.component.scss"],
@@ -70,8 +72,8 @@ export class ExampleViewerComponent implements OnInit {
 	 */
 	public getAppBaseHref(): string {
 		// the final url in GitHub Pages will be something like "/showcase/latest/" or "/showcase/some-version/"
-		const finalUrlRegex: RegExp = /(\/showcase\/[\d\D][^\/]+(\/|\/$|$))/;
-		const trailingSlashRegex: RegExp = /\/$/;
+		const finalUrlRegex = /(\/showcase\/[\d\D][^/]+(\/|\/$|$))/;
+		const trailingSlashRegex = /\/$/;
 		const matches: RegExpExecArray | null = finalUrlRegex.exec(window.location.pathname);
 
 		let finalBaseHref = "";
@@ -100,7 +102,7 @@ export class ExampleViewerComponent implements OnInit {
 		return file.extension;
 	}
 
-	private translateExtensionToFormat(extension: string): string {
+	private translateExtensionToFormat(extension: string): StarkPrettyPrintFormat {
 		switch (extension.toLowerCase()) {
 			case "js":
 				return "javascript";
@@ -109,7 +111,7 @@ export class ExampleViewerComponent implements OnInit {
 				return "typescript";
 
 			default:
-				return extension;
+				return <StarkPrettyPrintFormat>extension;
 		}
 	}
 }

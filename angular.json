@@ -12,20 +12,23 @@
           "builder": "@angular-builders/custom-webpack:browser",
           "options": {
             "customWebpackConfig": {
-              "path": "./node_modules/@nationalbankbelgium/stark-build/config/webpack-partial.dev.js",
-              "mergeStrategies": {
-                "modules.rules": "prepend",
-                "plugins": "prepend",
-                "devServer": "prepend",
-                "replaceDuplicatePlugins": false
-              }
+              "path": "./node_modules/@nationalbankbelgium/stark-build/config/webpack.config.js"
             },
+            "indexTransform": "./node_modules/@nationalbankbelgium/stark-build/config/index-html.transform.js",
             "outputPath": "dist",
+            "allowedCommonJsDependencies": [
+              "validator",
+              "@nationalbankbelgium/stark-core"
+            ],
             "index": "src/index.html",
             "main": "src/main.browser.ts",
             "tsConfig": "tsconfig.app.json",
             "polyfills": "src/polyfills.browser.ts",
-            "extractCss": true,
+            "buildOptimizer": false,
+            "optimization": false,
+            "vendorChunk": true,
+            "sourceMap": true,
+            "namedChunks": true,
             "assets": [
               {
                 "glob": "mdi.svg",
@@ -55,8 +58,12 @@
             ],
             "styles": [
               "node_modules/@nationalbankbelgium/stark-core/assets/css/pre-load-style.css",
-              "src/styles/styles.scss",
-              "src/styles/styles.pcss"
+              "node_modules/prismjs/themes/prism-okaidia.css",
+              "node_modules/basscss/src/basscss.css",
+              {
+                "inject": false,
+                "input": "src/styles/styles.scss"
+              }
             ],
             "scripts": [],
             "deployUrl": "/",
@@ -71,19 +78,13 @@
                 }
               ]
             },
+            "development": {},
             "production": {
-              "customWebpackConfig": {
-                "path": "./node_modules/@nationalbankbelgium/stark-build/config/webpack-partial.prod.js",
-                "mergeStrategies": {
-                  "modules.rules": "prepend",
-                  "plugins": "prepend",
-                  "replaceDuplicatePlugins": false
-                }
-              },
               "optimization": true,
+              "namedChunks": false,
+              "subresourceIntegrity": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
@@ -114,7 +115,7 @@
           }
         },
         "serve": {
-          "builder": "@angular-builders/dev-server:generic",
+          "builder": "@angular-builders/custom-webpack:dev-server",
           "options": {
             "browserTarget": "showcase:build",
             "port": 3000,
@@ -130,8 +131,12 @@
             },
             "e2e.prod": {
               "browserTarget": "showcase:build:e2e.prod"
+            },
+            "development": {
+              "browserTarget": "showcase:build:development"
             }
-          }
+          },
+          "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
@@ -140,14 +145,16 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": ["tsconfig.app.json", "tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**"]
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
           }
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular-builders/custom-webpack:karma",
           "options": {
             "main": "base.spec.ts",
             "karmaConfig": "./karma.conf.js",
@@ -175,10 +182,12 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": "e2e/tsconfig.e2e.json",
-            "exclude": ["**/node_modules/**"]
+            "lintFilePatterns": [
+              "e2e//**/*.ts",
+              "e2e//**/*.html"
+            ]
           }
         }
       }
@@ -188,10 +197,13 @@
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "showcase",
-      "styleext": "scss"
+      "style": "scss"
     },
     "@schematics/angular:directive": {
       "prefix": "showcase"
     }
+  },
+  "cli": {
+    "defaultCollection": "@angular-eslint/schematics"
   }
 }

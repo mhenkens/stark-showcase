@@ -15,4 +15,4 @@
 <br />
 
 <div *ngIf="serviceFormControl.value">Selected value: {{ serviceFormControl.value }}</div>
-<mat-checkbox (change)="toggleDisabledReactiveFormControl()" [value]="serviceFormControl.disabled">Disabled</mat-checkbox>
+<mat-checkbox (change)="toggleDisabledReactiveFormControl()" [checked]="serviceFormControl.disabled">Disabled</mat-checkbox>
