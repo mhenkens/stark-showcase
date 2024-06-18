@@ -80,6 +80,9 @@ import { APP_STATES } from "./app.routes";
 import { AppComponent } from "./app.component";
 
 // TODO: where to put this factory function?
+/**
+ *
+ */
 export function starkAppConfigFactory(): StarkApplicationConfig {
 	const config: any = require("../stark-app-config.json");
 
@@ -98,6 +101,9 @@ export function starkAppConfigFactory(): StarkApplicationConfig {
 }
 
 // TODO: where to put this factory function?
+/**
+ *
+ */
 export function starkAppMetadataFactory(): StarkApplicationMetadata {
 	const metadata: any = require("../stark-app-metadata.json");
 
@@ -105,6 +111,7 @@ export function starkAppMetadataFactory(): StarkApplicationMetadata {
 }
 
 // TODO: where to put this factory function?
+/* eslint-disable-next-line jsdoc/require-jsdoc */
 export function starkMockDataFactory(): StarkMockData {
 	if (ENV === "development") {
 		return require("../../config/json-server/data.json");
@@ -113,10 +120,12 @@ export function starkMockDataFactory(): StarkMockData {
 	return {};
 }
 
+/* eslint-disable-next-line jsdoc/require-jsdoc */
 export function initRouterLog(router: UIRouter): () => void {
 	return (): void => logRegisteredStates(router.stateService.get());
 }
 
+/* eslint-disable-next-line jsdoc/require-jsdoc */
 export function getXsrfWaitBeforePinging(sessionService: StarkSessionService): Observable<any> {
 	let waitFor$: Observable<any> = of("production"); // no need to wait on production
 
@@ -124,9 +133,7 @@ export function getXsrfWaitBeforePinging(sessionService: StarkSessionService): O
 		// wait for the user to be logged in (useful when targeting a live backend on DEV)
 		waitFor$ = sessionService.getCurrentUser().pipe(
 			filter((user?: StarkUser) => typeof user !== "undefined"),
-			map(() => {
-				return "dev login";
-			})
+			map(() => "dev login")
 		);
 	}
 
@@ -142,6 +149,7 @@ export const reducers: ActionReducerMap<State> = {
 	// reducers
 };
 
+/* eslint-disable-next-line jsdoc/require-jsdoc */
 export function logger(reducer: ActionReducer<State>): any {
 	// default, no options
 	return storeLogger({

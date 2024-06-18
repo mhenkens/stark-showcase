@@ -7,6 +7,7 @@ const INITIAL_STATE: Readonly<StarkSearchState<HeroMovieSearchCriteria>> = {
 	hasBeenSearched: false
 };
 
+/* eslint-disable-next-line jsdoc/require-jsdoc */
 export function demoGenericSearchReducer(
 	state: Readonly<StarkSearchState<HeroMovieSearchCriteria>> = INITIAL_STATE,
 	action: Readonly<DemoGenericSearchActions>

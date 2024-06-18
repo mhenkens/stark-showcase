@@ -14,7 +14,7 @@ import {
 } from "@nationalbankbelgium/stark-ui";
 import { ReferenceLink } from "../../../shared/components/reference-block";
 
-/* tslint:disable:no-identical-functions */
+/* eslint-disable */
 @Component({
 	selector: "demo-dialogs",
 	templateUrl: "./dialogs-page.component.html",

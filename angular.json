@@ -16,7 +16,10 @@
             },
             "indexTransform": "./node_modules/@nationalbankbelgium/stark-build/config/index-html.transform.js",
             "outputPath": "dist",
-            "allowedCommonJsDependencies": ["validator", "@nationalbankbelgium/stark-core"],
+            "allowedCommonJsDependencies": [
+              "validator",
+              "@nationalbankbelgium/stark-core"
+            ],
             "index": "src/index.html",
             "main": "src/main.browser.ts",
             "tsConfig": "tsconfig.app.json",
@@ -142,10 +145,12 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": ["tsconfig.app.json", "tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**"]
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
           }
         },
         "test": {
@@ -177,10 +182,12 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": "e2e/tsconfig.e2e.json",
-            "exclude": ["**/node_modules/**"]
+            "lintFilePatterns": [
+              "e2e//**/*.ts",
+              "e2e//**/*.html"
+            ]
           }
         }
       }
@@ -195,5 +202,8 @@
     "@schematics/angular:directive": {
       "prefix": "showcase"
     }
+  },
+  "cli": {
+    "defaultCollection": "@angular-eslint/schematics"
   }
 }
