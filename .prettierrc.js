@@ -1,1 +1,1 @@
-module.exports = require("@nationalbankbelgium/code-style/prettier/3.1.x"git );
+module.exports = require("@nationalbankbelgium/code-style/prettier/3.1.x");

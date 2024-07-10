@@ -3,9 +3,9 @@
 /* ============================================================================== */
 /* stark-ui: src/modules/reference-block/components/reference-block.component.scss */
 
-@use "~@angular/material" as mat;
-@use "~@nationalbankbelgium/stark-ui" as stark-ui;
-@use "~@nationalbankbelgium/stark-ui/styles/old-variables" as *;
+@use "@angular/material" as mat;
+@use "@nationalbankbelgium/stark-ui" as stark-ui;
+@use "@nationalbankbelgium/stark-ui/styles/old-variables" as *;
 
 .stark-reference-block div {
   background-color: #fff;

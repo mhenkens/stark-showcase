@@ -28,49 +28,48 @@ import { filter } from "rxjs/operators";
 import { ExampleViewerComponent, ReferenceBlockComponent, TableOfContentsComponent } from "./components";
 
 @NgModule({
-	imports: [
-		CommonModule,
-		FormsModule,
-		ReactiveFormsModule,
-		FlexLayoutModule,
-		MatButtonModule,
-		MatButtonToggleModule,
-		MatCardModule,
-		MatCheckboxModule,
-		MatExpansionModule,
-		MatIconModule,
-		MatListModule,
-		MatTabsModule,
-		MatTooltipModule,
-		MatSnackBarModule,
-		StarkPrettyPrintModule,
-		TranslateModule,
-		UIRouterModule.forChild()
-	],
-	declarations: [ExampleViewerComponent, ReferenceBlockComponent, TableOfContentsComponent],
-	entryComponents: [],
-	// export commonly used components/directives/components (see https://angular.io/guide/sharing-ngmodules)
-	exports: [
-		ExampleViewerComponent,
-		ReferenceBlockComponent,
-		TableOfContentsComponent,
-		CommonModule,
-		FormsModule,
-		ReactiveFormsModule,
-		FlexLayoutModule,
-		MatButtonModule,
-		MatButtonToggleModule,
-		MatCardModule,
-		MatCheckboxModule,
-		MatExpansionModule,
-		MatIconModule,
-		MatListModule,
-		MatTabsModule,
-		MatTooltipModule,
-		MatSnackBarModule,
-		StarkPrettyPrintModule,
-		TranslateModule
-	]
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        FlexLayoutModule,
+        MatButtonModule,
+        MatButtonToggleModule,
+        MatCardModule,
+        MatCheckboxModule,
+        MatExpansionModule,
+        MatIconModule,
+        MatListModule,
+        MatTabsModule,
+        MatTooltipModule,
+        MatSnackBarModule,
+        StarkPrettyPrintModule,
+        TranslateModule,
+        UIRouterModule.forChild()
+    ],
+    declarations: [ExampleViewerComponent, ReferenceBlockComponent, TableOfContentsComponent],
+    // export commonly used components/directives/components (see https://angular.io/guide/sharing-ngmodules)
+    exports: [
+        ExampleViewerComponent,
+        ReferenceBlockComponent,
+        TableOfContentsComponent,
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        FlexLayoutModule,
+        MatButtonModule,
+        MatButtonToggleModule,
+        MatCardModule,
+        MatCheckboxModule,
+        MatExpansionModule,
+        MatIconModule,
+        MatListModule,
+        MatTabsModule,
+        MatTooltipModule,
+        MatSnackBarModule,
+        StarkPrettyPrintModule,
+        TranslateModule
+    ]
 })
 export class SharedModule {
 	public constructor(
