@@ -1,5 +1,5 @@
 import { Injectable, Injector, NgZone } from "@angular/core";
-import { Actions, Effect, ofType } from "@ngrx/effects";
+import { Actions, createEffect ,CreateEffectMetadata, ofType } from "@ngrx/effects";
 import { map } from "rxjs/operators";
 import { Observable } from "rxjs";
 import { STARK_TOAST_NOTIFICATION_SERVICE, StarkMessageType, StarkToastNotificationService } from "@nationalbankbelgium/stark-ui";
@@ -19,26 +19,26 @@ export class StarkErrorHandlingEffects {
 	 * @param injector - the injector of the class
 	 * @param zone - the service to execute actions inside or outside of an Angular Zone.
 	 */
-	public constructor(private actions$: Actions, private injector: Injector, private zone: NgZone) {}
-
-	@Effect({ dispatch: false })
-	public starkUnhandledError$(): Observable<void> {
-		return this.actions$.pipe(
-			ofType(StarkErrorHandlingActions.unhandledError),
-			map((action) => {
-				this.zone.run(() => {
-					this.toastNotificationService
-						.show({
-							id: uniqueId(),
-							type: StarkMessageType.ERROR,
-							key: action.error.toString(),
-							code: "Unhandled error - no code"
-						})
-						.subscribe();
-				});
-			})
-		);
+	public constructor(private actions$: Actions, private injector: Injector, private zone: NgZone) {
+		this.starkUnhandledError$ = createEffect(() =>
+			this.actions$.pipe(
+				ofType(StarkErrorHandlingActions.unhandledError),
+				map((action) => {
+					this.zone.run(() => {
+						this.toastNotificationService
+							.show({
+								id: uniqueId(),
+								type: StarkMessageType.ERROR,
+								key: action.error.toString(),
+								code: "Unhandled error - no code"
+							})
+							.subscribe();
+					});
+				}))
+		, {dispatch: false} );
 	}
+
+	public starkUnhandledError$: Observable<void> & CreateEffectMetadata;
 
 	/**
 	 * Gets the StarkToastNotificationService from the Injector.
