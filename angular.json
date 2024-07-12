@@ -198,7 +198,6 @@
       }
     }
   },
-  "defaultProject": "showcase",
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "showcase",
@@ -209,6 +208,8 @@
     }
   },
   "cli": {
-    "defaultCollection": "@angular-eslint/schematics"
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ]
   }
 }
