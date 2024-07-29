@@ -9,7 +9,7 @@ import {
 	RequestInfo,
 	RequestInfoUtilities,
 	ResponseOptions
-} from "angular-in-memory-web-api/interfaces";
+} from "angular-in-memory-web-api";
 import { STARK_LOGGING_SERVICE, StarkLoggingService } from "@nationalbankbelgium/stark-core";
 
 const mockData: object = require("../../../../config/json-server/data.json");
